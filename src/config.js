@@ -21,3 +21,12 @@ export const app = {
         return process.env.CRON_SCHEDULE;
     }
 }
+
+export const bus = {
+    get atCode() {
+        return process.env.BUS_STOP_ATCODE
+    },
+    get route() {
+        return process.env.BUS_ROUTE
+    }
+}

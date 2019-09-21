@@ -2,6 +2,7 @@ import { LIGHT_HUE_VALUES } from './constants';
 import { getLight } from './services/hue';
 import { timeUntilDeparturesForRoute } from './services/transport-api';
 import { log } from './logger';
+import { bus } from './config';
 
 const getLightHue = timeUntilDepartures => {
     if (timeUntilDepartures.some(d => d >= 5 && d < 10)) {
@@ -23,7 +24,7 @@ export default {
             return;
         }
 
-        const hueToChangeTo = await timeUntilDeparturesForRoute(28)
+        const hueToChangeTo = await timeUntilDeparturesForRoute(bus.route)
             .then(getLightHue)
             .catch(() => LIGHT_HUE_VALUES.BLUE)
 

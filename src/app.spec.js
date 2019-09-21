@@ -11,6 +11,8 @@ describe('Bus Lights application', () => {
         process.env.TRANSPORT_API_APP_ID = 'transport-app';
         process.env.TRANSPORT_API_APP_KEY = 'password';
         process.env.HUE_UNIQUE_LIGHT_ID = '00:17:88:01:03:9c:be:29-0b';
+        process.env.BUS_STOP_ATCODE = '4500';
+        process.env.BUS_ROUTE = '28'
     })
 
     describe('Given the Hue light is switched on', () => {
@@ -23,7 +25,7 @@ describe('Bus Lights application', () => {
         describe('Given Transport API is available', () => {
             beforeEach(() => {
                 nock('https://transportapi.com/v3')
-                    .get('/uk/bus/stop/450011369/live.json')
+                    .get('/uk/bus/stop/4500/live.json')
                     .query({ app_id: 'transport-app', app_key: 'password' })
                     .reply(200, liveStopResponse);
             });
@@ -126,7 +128,7 @@ describe('Bus Lights application', () => {
         describe('Given Transport API is down', () => {
             beforeEach(() => {
                 nock('https://transportapi.com/v3')
-                    .get('/uk/bus/stop/450011369/live.json')
+                    .get('/uk/bus/stop/4500/live.json')
                     .query({ app_id: 'transport-app', app_key: 'password' })
                 .reply(500);
             })

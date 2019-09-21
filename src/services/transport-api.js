@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { differenceInMinutes, parse } from 'date-fns';
-import { transportApi } from '../config';
+import { bus, transportApi } from '../config';
 
 const getAxiosClient = () => axios.create({ 
     baseURL: 'https://transportapi.com/v3', 
@@ -11,7 +11,7 @@ const getAxiosClient = () => axios.create({
 })
 
 const getDepartures = async () => {
-    const result = await getAxiosClient().get('uk/bus/stop/450011369/live.json');
+    const result = await getAxiosClient().get(`uk/bus/stop/${bus.atCode}/live.json`);
     return result.data.departures;
 }
 
