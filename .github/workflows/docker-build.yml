@@ -1,0 +1,10 @@
+name: Docker Workflow
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Image
+        run: docker build . -t bus-lights:latest
