@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { differenceInMinutes, parse } from 'date-fns';
+import { transportApi } from '../config';
 
 const getAxiosClient = () => axios.create({ 
     baseURL: 'https://transportapi.com/v3', 
     params: {
-        app_id: process.env.TRANSPORT_API_APP_ID,
-        app_key: process.env.TRANSPORT_API_APP_KEY
-    } 
+        app_id: transportApi.appId,
+        app_key: transportApi.appKey
+    }
 })
 
 const getDepartures = async () => {
