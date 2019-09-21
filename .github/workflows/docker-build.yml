@@ -22,3 +22,8 @@ jobs:
 
       - name: Push Image
         run: docker push matttennison/bus-lights:$(git rev-parse --short HEAD)
+      
+      - name: Push Image as latest
+        run: |
+          docker tag matttennison/bus-lights:$(git rev-parse --short HEAD) matttennison/bus-lights:latest
+          docker push matttennison/bus-lights:latest
