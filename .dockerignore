@@ -3,3 +3,5 @@
 !babel.config.js
 !package.json
 !yarn.lock
+!test
+!jest.config.js

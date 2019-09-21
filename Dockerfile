@@ -1,5 +1,5 @@
 # ----- Dependencies -----
-FROM node:10.16.3-alpine as dependencies
+FROM node:10.16.3-alpine as stage
 
 WORKDIR /app
 
@@ -21,8 +21,8 @@ FROM node:10.16.3-alpine
 
 WORKDIR /app
 
-COPY --from=dependencies /app/prod_modules ./node_modules
-COPY --from=dependencies /app/lib ./lib
+COPY --from=stage /app/prod_modules ./node_modules
+COPY --from=stage /app/lib ./lib
 
 ENTRYPOINT ["node"]
 CMD ["lib"]

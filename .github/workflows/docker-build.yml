@@ -12,7 +12,13 @@ jobs:
         run: docker pull matttennison/bus-lights:$(git rev-parse --short HEAD^1)
         continue-on-error: true
 
-      - name: Build Image
+      - name: Build stage image
+        run: docker build . -t bus-lights:$(git rev-parse --short HEAD)-stage --target=stage
+
+      - name: Run unit tests
+        run:  docker run bus-lights:$(git rev-parse --short HEAD)-stage yarn test src/
+
+      - name: Build final image
         run: docker build . -t matttennison/bus-lights:$(git rev-parse --short HEAD)
 
       - name: Log in to Docker
