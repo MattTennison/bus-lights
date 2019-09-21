@@ -1,0 +1,27 @@
+{
+  "name": "bus-lights",
+  "version": "1.0.0",
+  "description": "A simple server based utility to poll bus times and display this data through hue lights",
+  "main": "index.js",
+  "author": "Matt Tennison",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "nock": "^11.3.5"
+  },
+  "scripts": {
+    "build": "babel src -d lib --ignore \"src/**/*.spec.js\"",
+    "start": "node ./lib/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "axios": "0.18.1",
+    "date-fns": "^2.2.1",
+    "dotenv": "^8.1.0"
+  }
+}

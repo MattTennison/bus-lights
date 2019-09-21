@@ -1,0 +1,17 @@
+[
+    {
+        "success": {
+            "/lights/2/state/on": true
+        }
+    },
+    {
+        "success": {
+            "/lights/2/state/hue": 25500
+        }
+    },
+    {
+        "success": {
+            "/lights/2/state/sat": 254
+        }
+    }
+]
