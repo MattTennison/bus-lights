@@ -15,3 +15,9 @@ export const transportApi = {
         return process.env.TRANSPORT_API_APP_KEY;
     }
 }
+
+export const app = {
+    get cronSchedule() {
+        return process.env.CRON_SCHEDULE;
+    }
+}

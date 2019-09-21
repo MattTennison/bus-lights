@@ -1,6 +1,9 @@
 import dotenv from 'dotenv';
-import app from './app';
+import cron from 'node-cron';
 
+import app from './app';
+import { app as appConfig } from './config';
+ 
 dotenv.config();
 
-app.run();
+cron.schedule(appConfig.cronSchedule, app.run);
