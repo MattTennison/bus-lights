@@ -1,0 +1,40 @@
+name: Docker
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Attempt to pull previous Docker images for caching
+        run: |
+          docker pull matttennison/bus-lights:$(git rev-parse --short HEAD^1)
+          docker pull matttennison/bus-lights:$(git rev-parse --short HEAD^1)-stage
+        continue-on-error: true
+
+      - name: Build stage image
+        run: docker build . -t matttennison/bus-lights:$(git rev-parse --short HEAD)-stage --target=stage
+
+      - name: Run unit tests
+        run:  docker run matttennison/bus-lights:$(git rev-parse --short HEAD)-stage yarn test src/
+
+      - name: Build final image
+        run: docker build . -t matttennison/bus-lights:$(git rev-parse --short HEAD)
+
+      - name: Log in to Docker
+        env: 
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+        run: docker login -u matttennison -p $(echo $DOCKER_TOKEN)
+
+      - name: Push Images
+        run: |
+          docker push matttennison/bus-lights:$(git rev-parse --short HEAD)-stage
+          docker push matttennison/bus-lights:$(git rev-parse --short HEAD)
+      
+      - name: Push Image as latest
+        if: github.ref == 'master'
+        run: |
+          docker tag matttennison/bus-lights:$(git rev-parse --short HEAD) matttennison/bus-lights:latest
+          docker push matttennison/bus-lights:latest
