@@ -7,7 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: List folder contents
-        run: ls
+
       - name: Build Image
-        run: docker build . -t bus-lights:latest
+        run: docker build . -t matttennison/bus-lights:$(git rev-parse --short HEAD)
+  push:
+    name: Push
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Push Image
+        run: docker push matttennison/bus-lights:$(git rev-parse --short HEAD)
