@@ -1,4 +1,7 @@
 export const hue = {
+    get bridgeIpAddress() {
+        return process.env.HUE_BRIDGE_IP_ADDRESS
+    },
     get username() {
         return process.env.HUE_USERNAME;
     },

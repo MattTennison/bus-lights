@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { hue } from '../config';
 
-const getAxiosForHue = () => axios.create({ baseURL: `http://192.168.0.14/api/${hue.username}` });
+const getAxiosForHue = () => axios.create({ baseURL: `http://${hue.bridgeIpAddress}/api/${hue.username}` });
 
 const changeLightHue = lightId => hue => getAxiosForHue().put(`lights/${lightId}/state`, { bri: 254, hue, on: true, sat: 254 });
 

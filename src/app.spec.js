@@ -7,10 +7,13 @@ import app from './app';
 
 describe('Bus Lights application', () => {
     beforeEach(() => {
+        process.env.HUE_BRIDGE_IP_ADDRESS = '192.168.0.14';
         process.env.HUE_USERNAME = 'hue-user';
+        process.env.HUE_UNIQUE_LIGHT_ID = '00:17:88:01:03:9c:be:29-0b';
+
         process.env.TRANSPORT_API_APP_ID = 'transport-app';
         process.env.TRANSPORT_API_APP_KEY = 'password';
-        process.env.HUE_UNIQUE_LIGHT_ID = '00:17:88:01:03:9c:be:29-0b';
+        
         process.env.BUS_STOP_ATCODE = '4500';
         process.env.BUS_ROUTE = '28'
     })

@@ -29,6 +29,7 @@ Configuration values are supplied through environment variables.
 
 | Environment Variable  | Description                                                                                                                                                                        |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| HUE_BRIDGE_IP_ADDRESS | This is the IP Address of your Hue Bridge. Hue API docs have a good guide on finding it. Try this: https://discovery.meethue.com/                                                  |
 | HUE_USERNAME          | You have to create an API user on your Hue bridge, instructions can be found on: https://developers.meethue.com/develop/get-started-2/                                             |
 | HUE_UNIQUE_LIGHT_ID   | The light you want to control. To find this make a GET request to /api//lights and look for the `uniqueid` key for your particular light.                                          |
 | TRANSPORT_API_APP_ID  | Sign up for a free personal developer account at https://www.transportapi.com/ and you'll get one.                                                                                 |
