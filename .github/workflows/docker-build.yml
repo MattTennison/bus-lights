@@ -9,7 +9,8 @@ jobs:
       - uses: actions/checkout@master
 
       - name: Attempt to pull previous Docker image for caching
-        run: docker pull matttennison:/bus-lights:$(git rev-parse --short HEAD^1) || true
+        run: docker pull matttennison/bus-lights:$(git rev-parse --short HEAD^1)
+        continue-on-error: true
 
       - name: Build Image
         run: docker build . -t matttennison/bus-lights:$(git rev-parse --short HEAD)
