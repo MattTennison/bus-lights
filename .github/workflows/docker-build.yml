@@ -10,31 +10,32 @@ jobs:
 
       - name: Attempt to pull previous Docker images for caching
         run: |
-          docker pull matttennison/bus-lights:$(git rev-parse --short HEAD^1)
-          docker pull matttennison/bus-lights:$(git rev-parse --short HEAD^1)-stage
+          docker pull matttennison/bus-lights:$GITHUB_SHA
+          docker pull matttennison/bus-lights:$GITHUB_SHA-stage
         continue-on-error: true
 
       - name: Build stage image
-        run: docker build . -t matttennison/bus-lights:$(git rev-parse --short HEAD)-stage --target=stage
+        run: docker build . -t matttennison/bus-lights:$GITHUB_SHA-stage --target=stage
 
       - name: Run unit tests
-        run:  docker run matttennison/bus-lights:$(git rev-parse --short HEAD)-stage yarn test src/
+        run:  docker run matttennison/bus-lights:$GITHUB_SHA-stage yarn test src/
 
       - name: Build final image
-        run: docker build . -t matttennison/bus-lights:$(git rev-parse --short HEAD)
+        run: docker build . -t matttennison/bus-lights:$GITHUB_SHA
 
       - name: Log in to Docker
         env: 
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-        run: docker login -u matttennison -p $(echo $DOCKER_TOKEN)
+        run: docker login -u matttennison -p $DOCKER_TOKEN
 
       - name: Push Images
         run: |
-          docker push matttennison/bus-lights:$(git rev-parse --short HEAD)-stage
-          docker push matttennison/bus-lights:$(git rev-parse --short HEAD)
+          docker push matttennison/bus-lights:$GITHUB_SHA-stage
+          docker push matttennison/bus-lights:$GITHUB_SHA
       
-      - name: Push Image as latest
-        if: github.ref == 'master'
+      - name: Push final image as latest
+        if: github.ref == 'refs/heads/master'
         run: |
-          docker tag matttennison/bus-lights:$(git rev-parse --short HEAD) matttennison/bus-lights:latest
+          docker tag matttennison/bus-lights:$GITHUB_SHA matttennison/bus-lights:latest
           docker push matttennison/bus-lights:latest
+  
