@@ -6,6 +6,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
       - name: List folder contents
         run: ls
       - name: Build Image
